@@ -1,0 +1,255 @@
+:root {
+  --bg-base: #05070b;
+  --bg-elevated: #0d121c;
+  --text-main: #f8f9ff;
+  --text-muted: #b7bfcc;
+  --accent: #ffad1f;
+  --accent-soft: rgba(255, 173, 31, 0.2);
+  --border: rgba(255, 255, 255, 0.15);
+  --danger: #ff6464;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--text-main);
+  background:
+    radial-gradient(70rem 50rem at 80% -10%, rgba(255, 157, 0, 0.2), transparent 60%),
+    radial-gradient(50rem 40rem at 10% 110%, rgba(255, 204, 88, 0.16), transparent 65%),
+    var(--bg-base);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 999px;
+  filter: blur(4px);
+  background: radial-gradient(circle, rgba(255, 157, 0, 0.22), rgba(255, 157, 0, 0));
+  top: 10%;
+  right: 5%;
+  animation: drift 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.card {
+  width: min(46rem, 100%);
+  padding: clamp(1.25rem, 2vw, 2.5rem);
+  background: linear-gradient(180deg, rgba(13, 18, 28, 0.88) 0%, rgba(6, 9, 14, 0.92) 100%);
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  margin: 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+h1 {
+  margin: 0.7rem 0 0;
+  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+.subheadline {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+.question-box {
+  margin-top: 1.4rem;
+  padding: 1.1rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.prompt {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.vote-button,
+.submit-button {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 173, 31, 0.35);
+  color: var(--text-main);
+  background: rgba(255, 173, 31, 0.08);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.vote-button:hover:not(:disabled),
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(255, 173, 31, 0.2);
+  border-color: rgba(255, 173, 31, 0.8);
+}
+
+.vote-button:disabled,
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vote-button.selected {
+  border-color: rgba(255, 173, 31, 0.95);
+  background: rgba(255, 173, 31, 0.3);
+}
+
+.status {
+  margin: 0.9rem 0 0;
+  color: var(--text-muted);
+  min-height: 1.2rem;
+}
+
+.status-locked {
+  color: #ffd080;
+}
+
+.consent {
+  margin-top: 0.8rem;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.supporting-copy {
+  margin-top: 1.2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.supporting-copy p {
+  margin: 0.25rem 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 3, 7, 0.75);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  animation: fadeIn 220ms ease;
+  z-index: 50;
+}
+
+.modal-card {
+  width: min(30rem, 100%);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.1rem;
+  animation: slideUp 220ms ease;
+}
+
+.modal-card h2 {
+  margin: 0;
+}
+
+.modal-card p {
+  color: var(--text-muted);
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.contact-form input {
+  border-radius: 0.65rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+}
+
+.contact-form input:focus {
+  outline: 2px solid var(--accent-soft);
+  border-color: rgba(255, 173, 31, 0.65);
+}
+
+.form-error {
+  color: var(--danger);
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, -10px);
+  }
+}
+
+@media (max-width: 700px) {
+  .button-row {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
