@@ -2,6 +2,28 @@
 
 Next.js MVP for demand validation of night-time solar purchasing interest.
 
+## Scope Lock (Current Website MVP)
+
+This repository is strictly a customer-interest validation MVP.
+
+Primary objective:
+- Capture demand signal from solar farm owners/operators for nighttime solar energy if cost-competitive.
+
+In scope:
+- Landing page decision capture (`Yes` / `Maybe` / `No`)
+- Contact capture flow
+- Duplicate-response prevention
+- Basic analytics and conversion tracking
+
+Out of scope for this website MVP:
+- Orbital reflection physics simulation
+- Satellite control software
+- Constellation/orbit computation
+- Detailed technical feasibility modeling
+
+Note on background materials:
+- The orbital system PRD (for example, `Orbital_Solar_PRD.docx`) is background context only and does not define implementation scope for this web app.
+
 ## Setup
 
 1. Install dependencies:
@@ -12,6 +34,7 @@ Next.js MVP for demand validation of night-time solar purchasing interest.
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `SUPABASE_SERVICE_ROLE_KEY`
    - `FINGERPRINT_SALT` (random secret)
+   - `NEXT_PUBLIC_LINKEDIN_URL` (optional, used on `/technology`)
 4. Run SQL in your Supabase SQL editor:
    - `supabase/schema.sql`
 5. Start app:
@@ -45,6 +68,7 @@ Next.js MVP for demand validation of night-time solar purchasing interest.
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `SUPABASE_SERVICE_ROLE_KEY`
    - `FINGERPRINT_SALT`
+   - `NEXT_PUBLIC_LINKEDIN_URL` (optional)
 4. Deploy from `main`.
 
 ## Production Smoke Test

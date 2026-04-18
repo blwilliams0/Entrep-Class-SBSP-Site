@@ -152,7 +152,7 @@ export default function HomePage() {
       <section className="card">
         <p className="brand">Solar At Night</p>
 
-        <h1>Buy solar energy at night</h1>
+        <h1>Run your solar farm at night</h1>
         <p className="subheadline">For solar farm owners and operators seeking cost-competitive nighttime supply</p>
 
         <div className="question-box">
