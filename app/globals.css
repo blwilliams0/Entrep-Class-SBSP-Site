@@ -166,6 +166,11 @@ h1 {
   gap: 0.9rem;
 }
 
+.top-links {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
 .text-link {
   color: #ffd080;
   text-decoration: none;

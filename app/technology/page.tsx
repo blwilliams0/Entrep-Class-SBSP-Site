@@ -9,6 +9,18 @@ export default function TechnologyPage() {
       <div className="ambient-glow" aria-hidden="true" />
 
       <section className="card">
+        <nav className="optional-links top-links" aria-label="Site navigation">
+          <Link href="/" className="text-link">
+            Home
+          </Link>
+          <Link href="/technology" className="text-link">
+            Technology
+          </Link>
+          <Link href="/investment" className="text-link">
+            Investment
+          </Link>
+        </nav>
+
         <p className="brand">Solar At Night</p>
         <h1>Technology + Credibility</h1>
         <p className="subheadline">Visual concept, simulation proof-of-work, and founder profile</p>
@@ -41,6 +53,7 @@ export default function TechnologyPage() {
 
         <div className="info-block">
           <h2>Simulation Snapshot (MATLAB)</h2>
+          <p>This is a basic vector-based simulation showing sunlight reflected between satellites to a ground target.</p>
           <div className="image-frame">
             <Image
               src="/technology/matlab-simulation.png"
@@ -54,10 +67,10 @@ export default function TechnologyPage() {
 
         <div className="info-block founder-block">
           <h2>Founder</h2>
-          <p>Built by Blake Williams. Connect to verify identity and professional background.</p>
+          <p>Built by Blake Williams.</p>
           {linkedInUrl ? (
             <a href={linkedInUrl} target="_blank" rel="noreferrer" className="submit-button founder-link">
-              View LinkedIn Profile
+              Blake&apos;s LinkedIn Profile
             </a>
           ) : (
             <p className="cred-note">

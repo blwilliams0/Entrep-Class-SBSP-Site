@@ -156,7 +156,10 @@ export default function HomePage() {
         <p className="subheadline">For solar farm owners and operators seeking cost-competitive nighttime supply</p>
 
         <div className="question-box">
-          <p className="prompt">If you own or operate a solar farm, would you buy nighttime solar energy from us if it were cost-competitive?</p>
+          <p className="prompt">
+            If you own or operate a solar farm, would you buy redirected sunlight to keep your panels producing power
+            at night if it were cost-competitive?
+          </p>
 
           <div className="button-row">
             {voteOptions.map((option) => (
