@@ -13,20 +13,35 @@ interface ContactBody {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+interface ResponseIdRow {
+  id: number;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as ContactBody;
 
-    const name = body.name?.trim();
-    const email = body.email?.trim().toLowerCase();
-    const company = body.company?.trim() || null;
+    const name = body.name?.trim() ?? "";
+    const email = body.email?.trim().toLowerCase() ?? "";
+    const company = body.company?.trim() ?? "";
+    const isVoteFollowUp = Boolean(body.linkedResponseId);
 
-    if (!name || name.length < 2) {
-      return NextResponse.json({ error: "Name is required." }, { status: 400 });
-    }
+    if (isVoteFollowUp) {
+      if (!company) {
+        return NextResponse.json({ error: "Company is required." }, { status: 400 });
+      }
 
-    if (!email || !emailPattern.test(email)) {
-      return NextResponse.json({ error: "A valid email is required." }, { status: 400 });
+      if (email && !emailPattern.test(email)) {
+        return NextResponse.json({ error: "Email format is invalid." }, { status: 400 });
+      }
+    } else {
+      if (!name || name.length < 2) {
+        return NextResponse.json({ error: "Name is required." }, { status: 400 });
+      }
+
+      if (!email || !emailPattern.test(email)) {
+        return NextResponse.json({ error: "A valid email is required." }, { status: 400 });
+      }
     }
 
     const ipAddress = getIpAddress(request);
@@ -44,13 +59,14 @@ export async function POST(request: NextRequest) {
         .eq("visitor_hash", visitorHash)
         .maybeSingle();
 
-      linkedResponseId = responseRow?.id ?? null;
+      const responseIdRow = (responseRow as ResponseIdRow | null) ?? null;
+      linkedResponseId = responseIdRow?.id ?? null;
     }
 
     const { error } = await supabase.from("contacts").insert({
       name,
       email,
-      company,
+      company: company || null,
       linked_response_id: linkedResponseId
     });
 

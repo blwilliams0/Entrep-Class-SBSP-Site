@@ -8,6 +8,11 @@ type Vote = "Yes" | "Maybe" | "No";
 
 const ALLOWED_VOTES: Vote[] = ["Yes", "Maybe", "No"];
 
+interface ExistingResponseRow {
+  id: number;
+  response: Vote;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as { response?: Vote };
@@ -27,9 +32,11 @@ export async function POST(request: NextRequest) {
       .eq("visitor_hash", visitorHash)
       .maybeSingle();
 
-    if (existing) {
+    const existingResponse = (existing as ExistingResponseRow | null) ?? null;
+
+    if (existingResponse) {
       return NextResponse.json(
-        { error: "Response already recorded.", responseId: existing.id, response: existing.response },
+        { error: "Response already recorded.", responseId: existingResponse.id, response: existingResponse.response },
         { status: 409 }
       );
     }

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { track } from "@vercel/analytics";
+import Link from "next/link";
 
 type Vote = "Yes" | "Maybe" | "No";
 
@@ -180,6 +181,15 @@ export default function HomePage() {
           <p>We are building a system to deliver solar energy beyond daylight hours.</p>
           <p>Our focus is helping operators increase utilization of existing solar assets.</p>
         </div>
+
+        <div className="optional-links">
+          <Link href="/technology" className="text-link">
+            View technology details
+          </Link>
+          <Link href="/investment" className="text-link">
+            Express investment interest
+          </Link>
+        </div>
       </section>
 
       {isModalOpen ? (
@@ -188,36 +198,34 @@ export default function HomePage() {
             {formState !== "submitted" ? (
               <>
                 <h2 id="contact-title">Your response has been recorded.</h2>
-                <p>Leave your email to receive updates.</p>
+                <p>Share your company to receive updates. Name and email are optional.</p>
 
                 <form onSubmit={handleContactSubmit} className="contact-form">
                   <label>
-                    Name
+                    Name (Optional)
                     <input
                       value={name}
                       onChange={(event) => setName(event.target.value)}
-                      required
-                      minLength={2}
                       autoComplete="name"
                     />
                   </label>
 
                   <label>
-                    Email
+                    Email (Optional)
                     <input
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
-                      required
                       type="email"
                       autoComplete="email"
                     />
                   </label>
 
                   <label>
-                    Company (optional)
+                    Company (Required)
                     <input
                       value={company}
                       onChange={(event) => setCompany(event.target.value)}
+                      required
                       autoComplete="organization"
                     />
                   </label>
