@@ -14,9 +14,12 @@ create table if not exists contacts (
   name text not null,
   email text not null,
   company text,
+  comment text,
   linked_response_id bigint references responses(id) on delete set null,
   created_at timestamptz not null default now()
 );
+
+alter table contacts add column if not exists comment text;
 
 create index if not exists idx_contacts_linked_response_id on contacts(linked_response_id);
 create index if not exists idx_contacts_email on contacts(email);

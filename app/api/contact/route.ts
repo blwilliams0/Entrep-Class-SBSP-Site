@@ -8,7 +8,9 @@ interface ContactBody {
   name?: string;
   email?: string;
   company?: string;
+  comment?: string;
   linkedResponseId?: number | null;
+  source?: "home_modal" | "investment_page";
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,9 +26,11 @@ export async function POST(request: NextRequest) {
     const name = body.name?.trim() ?? "";
     const email = body.email?.trim().toLowerCase() ?? "";
     const company = body.company?.trim() ?? "";
+    const comment = body.comment?.trim() ?? "";
     const isVoteFollowUp = Boolean(body.linkedResponseId);
+    const isHomeModal = body.source === "home_modal";
 
-    if (isVoteFollowUp) {
+    if (isVoteFollowUp || isHomeModal) {
       if (!company) {
         return NextResponse.json({ error: "Company is required." }, { status: 400 });
       }
@@ -67,6 +71,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       company: company || null,
+      comment: comment || null,
       linked_response_id: linkedResponseId
     });
 

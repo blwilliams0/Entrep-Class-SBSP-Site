@@ -51,7 +51,7 @@ export default function InvestmentPage() {
       <section className="card">
         <p className="brand">Solar At Night</p>
         <h1>Investment Interest</h1>
-        <p className="subheadline">Express interest in supporting nighttime solar delivery</p>
+        <p className="subheadline">Express interest in peak-demand solar extension and shoulder-hour augmentation</p>
 
         {formState !== "submitted" ? (
           <>

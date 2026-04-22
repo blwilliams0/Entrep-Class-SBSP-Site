@@ -23,7 +23,7 @@ export default function TechnologyPage() {
 
         <p className="brand">Solar At Night</p>
         <h1>Technology + Credibility</h1>
-        <p className="subheadline">Visual concept, simulation proof-of-work, and founder profile</p>
+        <p className="subheadline">Shoulder-hour solar augmentation and peak-demand solar extension</p>
 
         <div className="info-block">
           <h2>System Schematic (Concept)</h2>

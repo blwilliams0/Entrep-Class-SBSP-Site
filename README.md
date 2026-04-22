@@ -44,7 +44,7 @@ Note on background materials:
 
 - `GET /api/check-ip` -> checks if current visitor fingerprint already submitted
 - `POST /api/response` -> stores Yes/Maybe/No if no existing fingerprint
-- `POST /api/contact` -> stores name/email/company linked to response
+- `POST /api/contact` -> stores name/email/company/comment linked to response
 
 ## Routes
 

@@ -27,8 +27,10 @@ export default function HomePage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [comment, setComment] = useState("");
   const [formState, setFormState] = useState<"idle" | "loading" | "submitted">("idle");
   const [formError, setFormError] = useState("");
+  const [modalType, setModalType] = useState<"vote" | "comment">("vote");
 
   useEffect(() => {
     let cancelled = false;
@@ -70,6 +72,13 @@ export default function HomePage() {
     return voteState === "loading" || locked;
   }, [voteState, locked]);
 
+  function openCommentModal() {
+    setModalType("comment");
+    setFormError("");
+    setFormState("idle");
+    setModalOpen(true);
+  }
+
   async function handleVote(vote: Vote) {
     setVoteState("loading");
     setFormError("");
@@ -102,6 +111,7 @@ export default function HomePage() {
       setResponseId(data.responseId as number);
       setLocked(true);
       setVoteState("done");
+      setModalType("vote");
       setStatusMessage("Your response has been recorded.");
       setModalOpen(true);
       track("vote_submitted", { vote });
@@ -127,7 +137,9 @@ export default function HomePage() {
           name,
           email,
           company,
-          linkedResponseId: responseId
+          comment,
+          linkedResponseId: responseId,
+          source: "home_modal"
         })
       });
 
@@ -137,7 +149,11 @@ export default function HomePage() {
       }
 
       setFormState("submitted");
-      track("contact_submitted", { hasCompany: company ? "yes" : "no" });
+      track("contact_submitted", {
+        hasCompany: company ? "yes" : "no",
+        hasComment: comment ? "yes" : "no",
+        modalType
+      });
     } catch (error) {
       setFormState("idle");
       const message = error instanceof Error ? error.message : "Unable to submit contact details.";
@@ -152,13 +168,12 @@ export default function HomePage() {
       <section className="card">
         <p className="brand">Solar At Night</p>
 
-        <h1>Run your solar farm at night</h1>
-        <p className="subheadline">For solar farm owners and operators seeking cost-competitive nighttime supply</p>
+        <h1>Run your solar farm at peak prices</h1>
+        <p className="subheadline">Increase output during evening demand without building new panels</p>
 
         <div className="question-box">
           <p className="prompt">
-            If you own or operate a solar farm, would you buy redirected sunlight to keep your panels producing power
-            at night if it were cost-competitive?
+            Would you purchase additional solar energy during evening peak demand if it were cost-competitive?
           </p>
 
           <div className="button-row">
@@ -173,7 +188,12 @@ export default function HomePage() {
                 {option}
               </button>
             ))}
+            <button className="vote-button" onClick={openCommentModal} disabled={voteState === "loading"} type="button">
+              Provide comment
+            </button>
           </div>
+
+          <p className="mini-explainer">Delivering short bursts of additional sunlight when it matters most.</p>
 
           <p className={`status ${locked ? "status-locked" : ""}`}>{statusMessage}</p>
         </div>
@@ -181,8 +201,9 @@ export default function HomePage() {
         <p className="consent">By responding, you agree we store your response and IP-derived fingerprint to prevent duplicates.</p>
 
         <div className="supporting-copy">
-          <p>We are building a system to deliver solar energy beyond daylight hours.</p>
-          <p>Our focus is helping operators increase utilization of existing solar assets.</p>
+          <p>Solar production drops just as electricity prices rise.</p>
+          <p>This creates a gap between generation and demand.</p>
+          <p>We are developing a system to extend solar output into high-value evening hours and increase utilization of existing solar infrastructure.</p>
         </div>
 
         <div className="optional-links">
@@ -200,8 +221,14 @@ export default function HomePage() {
           <div className="modal-card">
             {formState !== "submitted" ? (
               <>
-                <h2 id="contact-title">Your response has been recorded.</h2>
-                <p>Share your company to receive updates. Name and email are optional.</p>
+                <h2 id="contact-title">
+                  {modalType === "vote" ? "Your response has been recorded." : "Share your feedback."}
+                </h2>
+                <p>
+                  {modalType === "vote"
+                    ? "Share your company to receive updates. Name, email, and comment are optional."
+                    : "Share your company and any free-form feedback. Name and email are optional."}
+                </p>
 
                 <form onSubmit={handleContactSubmit} className="contact-form">
                   <label>
@@ -230,6 +257,17 @@ export default function HomePage() {
                       onChange={(event) => setCompany(event.target.value)}
                       required
                       autoComplete="organization"
+                    />
+                  </label>
+
+                  <label>
+                    Comment (Optional)
+                    <textarea
+                      value={comment}
+                      onChange={(event) => setComment(event.target.value)}
+                      rows={5}
+                      maxLength={1500}
+                      placeholder="Share your feedback, constraints, or questions."
                     />
                   </label>
 

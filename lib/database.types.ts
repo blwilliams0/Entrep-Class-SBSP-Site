@@ -5,6 +5,7 @@ export interface Database {
     Tables: {
       contacts: {
         Row: {
+          comment: string | null;
           company: string | null;
           created_at: string;
           email: string;
@@ -13,6 +14,7 @@ export interface Database {
           name: string;
         };
         Insert: {
+          comment?: string | null;
           company?: string | null;
           created_at?: string;
           email: string;
@@ -21,6 +23,7 @@ export interface Database {
           name: string;
         };
         Update: {
+          comment?: string | null;
           company?: string | null;
           created_at?: string;
           email?: string;
