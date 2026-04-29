@@ -198,6 +198,9 @@ export default function HomePage() {
           <p className={`status ${locked ? "status-locked" : ""}`}>{statusMessage}</p>
         </div>
 
+      </section>
+
+      <section className="below-fold">
         <p className="consent">By responding, you agree we store your response and IP-derived fingerprint to prevent duplicates.</p>
 
         <div className="supporting-copy">

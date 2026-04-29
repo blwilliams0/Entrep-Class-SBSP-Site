@@ -26,6 +26,19 @@ export default function TechnologyPage() {
         <p className="subheadline">Shoulder-hour solar augmentation and peak-demand solar extension</p>
 
         <div className="info-block">
+          <h2>Beam-Splitter Satellite Concept</h2>
+          <div className="image-frame">
+            <Image
+              src="/technology/beam-splitter-satellite.png"
+              alt="Blueprint-style concept diagram of a concentrated sunlight redistribution satellite with onboard beam splitter and transmission path to Earth"
+              width={1536}
+              height={1024}
+              className="tech-image tech-image-wide"
+            />
+          </div>
+        </div>
+
+        <div className="info-block">
           <h2>System Schematic (Concept)</h2>
           <div className="image-frame">
             <Image
